@@ -1,0 +1,8 @@
+{
+    "mne": "/network/lustre/iss02/cenir/analyse/meeg/BRAINLIFE/datasets/ds000117/sub-09/ses-meg/meg/sub-09_ses-meg_task-facerecognition_run-02_meg.fif",
+    "include_line": true,
+    "t_step": 0.01,
+    "t_window": "auto",
+    "ext_order": 1,
+    "allow_line_only": false
+}
