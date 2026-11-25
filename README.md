@@ -1,5 +1,52 @@
 # Filter cHPI Artifacts from Raw MEG Data
 
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **Removes continuous head-position-indicator (cHPI) and optionally power-line noise from raw MEG data with MNE-Python mne.chpi.filter_chpi, with before/after PSD plots and an HTML report.**
+
+Uses MNE's iterative-fitting cHPI filter, recommended over notch filtering because cHPI signals are modulated by head movement, to remove the coil frequencies (and line noise when include_line is true) from the MEG sensors. Use it on recordings acquired with cHPI coils active, before further preprocessing. Without cHPI information the App stops unless allow_line_only is set, in which case only line noise is removed.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/meeg/mne/raw` |
+| 📤 **Outputs** | `neuro/meeg/mne/raw` · `generic/image/png` · `report/html` |
+| 🐳 **Container** | `brainlifemeeg/mne:1.12.1` |
+| ⚙️ **Resources** | 4 CPUs · 20 GB memory |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.962](https://doi.org/10.25663/brainlife.app.962) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `fif` | `neuro/meeg/mne/raw` | yes | Raw MEG data in MNE FIF format recorded with cHPI coils active. Must contain cHPI information unless allow_line_only is true. |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `out_dir` | `neuro/meeg/mne/raw` | Raw MEG data with cHPI (and line) noise removed (raw.fif). |
+| `out_figs` | `generic/image/png` | Power spectral density plots before and after filtering. |
+| `out_report` | `report/html` | HTML report comparing original and filtered data. |
+
+<details>
+<summary><b>⚙️ Parameters</b> (5)</summary>
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `include_line` | boolean | `true` | If true, also filter line (powerline) noise, in addition to cHPI. |
+| `t_step` | number | `0.01` | Time step to use for cHPI amplitude estimation, in seconds. |
+| `t_window` | string | `auto` | Time window to use to estimate the amplitudes, in seconds, or "auto" for MNE's automatic window selection. |
+| `ext_order` | number | `1` | The external order for SSS-like interference suppression; the SSS bases are used as projection vectors during fitting. |
+| `allow_line_only` | boolean | `false` | If true, allow filtering line noise only, even when no real cHPI information is present. |
+
+</details>
+
+📚 **References used by this App:**
+- Hayashi S., Caron B. A., Heinsfeld A. S. et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. Nature Methods 21, 809-813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
+- Gramfort A. et al. MEG and EEG data analysis with MNE-Python. Frontiers in Neuroscience 7:267 (2013). [doi:10.3389/fnins.2013.00267](https://doi.org/10.3389/fnins.2013.00267)
+
+<!-- brainlife-app:end -->
+
 ## Description
 
 This Brainlife.io application removes continuous head-position-indicator (cHPI) and, optionally,
